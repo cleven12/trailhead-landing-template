@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trailhead - Conquer the Summit | Peak Tours</title>
+    <meta name="description" content="Experience the adventure of a lifetime with the region's premier Peak specialists. Expert local guides, 95%+ summit success rate, and unmatched safety record on the Peak.">
+    <meta name="keywords" content="mountain, peak, climbing, trekking, wildlife, adventure, tours, guides">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Trailhead - Conquer the Summit | Peak Tours">
+    <meta property="og:description" content="Experience the adventure of a lifetime with the region's premier Peak specialists.">
+    <meta property="og:image" content="./hero.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Trailhead - Conquer the Summit">
+    <meta property="twitter:description" content="Experience the adventure of a lifetime with the region's premier Peak specialists.">
+    
+    <link rel="canonical" href="https://example.com">
+    
+    <style>
+        :root {
+            /* Summit-inspired color palette */
+            --primary-blue: #1e3a8a;
+            --deep-navy: #0f172a;
+            --mountain-gold: #f59e0b;
+            --sunset-orange: #ea580c;
+            --earth-brown: #92400e;
+            --snow-white: #ffffff;
+            --cloud-gray: #f8fafc;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --accent-green: #059669;
+            
+            /* Gradients */
+            --hero-gradient: linear-gradient(135deg, rgba(30, 58, 138, 0.8), rgba(15, 23, 42, 0.9));
+            --card-gradient: linear-gradient(145deg, #ffffff, #f8fafc);
+            --button-gradient: linear-gradient(135deg, var(--mountain-gold), var(--sunset-orange));
+            
+            /* Shadows */
+            --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-large: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--mountain-gold);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--mountain-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .contact-btn {
+            background: var(--button-gradient);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* Mobile menu toggle */
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-dark);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: var(--hero-gradient), url('data:image/jpeg;base64,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');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--button-gradient);
+            color: white;
+            padding: 1.25rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-large);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(245, 158, 11, 0.4);
+        }
+
+        /* Stats Section */
+        .stats {
+            background: var(--deep-navy);
+            color: white;
+            padding: 4rem 0;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--mountain-gold);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+
+        /* Routes Section */
+        .routes {
+            padding: 6rem 0;
+            background: var(--cloud-gray);
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--deep-navy);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .routes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .route-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .route-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-large);
+        }
+
+        .route-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .route-card-content {
+            padding: 2rem;
+        }
+
+        .route-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--deep-navy);
+            margin-bottom: 1rem;
+        }
+
+        .route-card p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .route-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-tag {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--earth-brown);
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .route-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        /* About Section */
+        .about {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--deep-navy);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .why-choose {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 2rem;
+            background: var(--card-gradient);
+            border-radius: 15px;
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--button-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .feature-item h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--deep-navy);
+            margin-bottom: 1rem;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 6rem 0;
+            background: var(--cloud-gray);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow-soft);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--mountain-gold);
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-family: serif;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--deep-navy);
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .pricing-card {
+            background: var(--card-gradient);
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow-medium);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pricing-card.featured {
+            background: var(--deep-navy);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured::before {
+            content: 'Most Popular';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--mountain-gold);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .package-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .package-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--mountain-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .package-duration {
+            opacity: 0.7;
+            margin-bottom: 2rem;
+        }
+
+        .package-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .package-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .pricing-card.featured .package-features li {
+            border-bottom-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 0;
+            background: var(--deep-navy);
+            color: white;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .contact p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .contact-button {
+            background: var(--button-gradient);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* Footer */
+        .footer {
+            background: #000;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .animate-on-scroll.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .routes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .section-container {
+                padding: 0 1rem;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="#" class="logo">Trailhead</a>
+            <ul class="nav-menu">
+                <li><a href="#routes">Routes</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#testimonials">Reviews</a></li>
+            </ul>
+            <a href="#contact" class="contact-btn">Book Now</a>
+            <div class="mobile-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Conquer the Summit with the region's premier Peak Specialists</h1>
+            <p>Experience the adventure of a lifetime with expert local guides, proven safety record, and unmatched summit success rates on the Peak</p>
+            <a href="#contact" class="cta-button">Start Your the Peak Journey</a>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <span class="stat-number">95%+</span>
+                <span class="stat-label">Summit Success Rate</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">2,000+</span>
+                <span class="stat-label">Happy Climbers</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">15+</span>
+                <span class="stat-label">Years Experience</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Safety Record</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Routes Section -->
+    <section id="routes" class="routes">
+        <div class="section-container">
+            <div class="section-title">
+                <h2>Choose Your the Peak Route</h2>
+                <p>Each route offers a unique perspective of the highest peak in the region. Select the perfect adventure for your experience level and preferences.</p>
+            </div>
+            <div class="routes-grid">
+                <article class="route-card">
+                    <img src="route-1.jpg" alt="Classic Route with mountain huts">
+                    <div class="route-card-content">
+                        <h3>Classic Route (5-6 Days)</h3>
+                        <p>The 'Coca-Cola Route' - Perfect for first-time climbers seeking comfort with hut accommodations and gradual ascent.</p>
+                        <div class="route-features">
+                            <span class="feature-tag">Hut Accommodation</span>
+                            <span class="feature-tag">Beginner Friendly</span>
+                            <span class="feature-tag">Shorter Duration</span>
+                        </div>
+                        <div class="route-price">From $1,200</div>
+                    </div>
+                </article>
+
+                <article class="route-card">
+                    <img src="route-2.jpg" alt="Scenic Route trail">
+                    <div class="route-card-content">
+                        <h3>Scenic Route (6-7 Days)</h3>
+                        <p>The 'Whiskey Route' - Our most popular scenic trail with diverse landscapes from rainforest to alpine desert.</p>
+                        <div class="route-features">
+                            <span class="feature-tag">Most Popular</span>
+                            <span class="feature-tag">Scenic Views</span>
+                            <span class="feature-tag">High Success Rate</span>
+                        </div>
+                        <div class="route-price">From $1,500</div>
+                    </div>
+                </article>
+
+                <article class="route-card">
+                    <img src="route-3.jpg" alt="Wilderness Route - premium experience">
+                    <div class="route-card-content">
+                        <h3>Wilderness Route (7-8 Days)</h3>
+                        <p>Premium wilderness experience with highest success rates, stunning panoramic views, and excellent acclimatization.</p>
+                        <div class="route-features">
+                            <span class="feature-tag">Highest Success Rate</span>
+                            <span class="feature-tag">Less Crowded</span>
+                            <span class="feature-tag">Premium Experience</span>
+                        </div>
+                        <div class="route-price">From $1,800</div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="section-container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Why Choose Trailhead</h2>
+                    <p>Born in the shadow of the Peak, Trailhead is the region's most trusted climbing specialist. For over 15 years, we've safely guided thousands of adventurers to Africa's highest peak.</p>
+                    <p>Our team of certified local guides, porters, and mountain safety experts ensures your the Peak dream becomes reality with the highest safety standards and personalized service.</p>
+                </div>
+            </div>
+            
+            <div class="why-choose">
+                <div class="feature-item">
+                    <div class="feature-icon">🏔️</div>
+                    <h3>Local Expertise</h3>
+                    <p>Born and raised on the Peak's slopes, our guides know every trail, weather pattern, and secret viewpoint</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Safety First</h3>
+                    <p>Comprehensive safety protocols, emergency equipment, and evacuation procedures for complete peace of mind</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Ethical Tourism</h3>
+                    <p>Fair wages for porters, eco-friendly practices, and giving back to local communities</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⭐</div>
+                    <h3>Personalized Service</h3>
+                    <p>Small group sizes, customized itineraries, and dedicated support throughout your journey</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="section-container">
+            <div class="section-title">
+                <h2>What Our Climbers Say</h2>
+                <p>Don't just take our word for it - hear from fellow adventurers who've conquered the Peak with Trailhead</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Trailhead made my the Peak dream come true! The guides were incredible, safety was paramount, and reaching Uhuru Peak was the most incredible moment of my life. I can't recommend them enough!</p>
+                    <div class="testimonial-author">- Sarah M., USA</div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Professional, safe, and absolutely amazing experience. The team's knowledge of the mountain is unmatched. They supported us every step of the way to the summit.</p>
+                    <div class="testimonial-author">- James K., UK</div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Best decision ever! The Machame route with Trailhead was challenging but so rewarding. The guides were like family by the end, and the summit sunrise was magical.</p>
+                    <div class="testimonial-author">- Maria L., Germany</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="section-container">
+            <div class="section-title">
+                <h2>Choose Your Adventure Package</h2>
+                <p>All packages include expert guides, quality equipment, meals, permits, and transportation. Group discounts available.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="package-name">Essential Climb</div>
+                    <div class="package-price">$1,200</div>
+                    <div class="package-duration">5-6 days</div>
+                    <ul class="package-features">
+                        <li>Certified mountain guides</li>
+                        <li>Basic camping equipment</li>
+                        <li>Three meals daily</li>
+                        <li>Park fees included</li>
+                        <li>Transfer to/from mountain</li>
+                        <li>Group size: 8-12 people</li>
+                    </ul>
+                    <a href="#contact" class="cta-button">Book Now</a>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <div class="package-name">Premium Experience</div>
+                    <div class="package-price">$1,800</div>
+                    <div class="package-duration">6-7 days</div>
+                    <ul class="package-features">
+                        <li>Expert certified guides</li>
+                        <li>Premium camping equipment</li>
+                        <li>Gourmet mountain meals</li>
+                        <li>Emergency evacuation insurance</li>
+                        <li>Pre-climb briefing</li>
+                        <li>Small group: 4-6 people</li>
+                        <li>Summit certificate</li>
+                    </ul>
+                    <a href="#contact" class="cta-button">Book Now</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <div class="package-name">Luxury Wildlife Combo</div>
+                    <div class="package-price">$2,500</div>
+                    <div class="package-duration">10-12 days</div>
+                    <ul class="package-features">
+                        <li>Premium the Peak climb</li>
+                        <li>3-day luxury wildlife</li>
+                        <li>Top-tier accommodations</li>
+                        <li>Private transportation</li>
+                        <li>Personal guide & porter</li>
+                        <li>All meals included</li>
+                        <li>Photography package</li>
+                    </ul>
+                    <a href="#contact" class="cta-button">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="section-container">
+            <h2>Ready to Conquer the Peak?</h2>
+            <p>Start your journey to the summit today. Our expert team is ready to help you plan the adventure of a lifetime.</p>
+            <div class="contact-buttons">
+                <a href="tel:+255123456789" class="contact-button">📞 Call Now</a>
+                <a href="https://wa.me/255123456789" class="contact-button">💬 WhatsApp</a>
+                <a href="mailto:info@example.com" class="contact-button">✉️ Email Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Trailhead. All rights reserved. | Licensed Tour Operator Your Country | Safety Certified Guides</p>
+            <p>Arusha, Your Country | info@example.com | +255 123 456 789</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with animation class
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+
+        // Mobile menu toggle (basic implementation)
+        document.querySelector('.mobile-toggle').addEventListener('click', () => {
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+    </script>
+</body>
+</html>
